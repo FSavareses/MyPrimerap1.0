@@ -21,33 +21,33 @@ class MainActivity : ComponentActivity() {
 //        Firebase.auth
 //    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            val viewModel: LoginViewModel by viewModels()
-            MyPrimerap1Theme {
-
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                )
-                {
-                    LoginScreen(viewModel)
-
-                 }
-            }
-        }
-    }
-//      EN PROCESO
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            val viewModel: LoginViewModel by viewModels()
+//            MyPrimerap1Theme {
 //
-//        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-//        if (requestCode == RC_SIGN_IN) {
-//            // The Task returned from this call is always completed, no need to attach
-//            // a listener.
-//            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            handleSignInResult(task)
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colors.background
+//                )
+//                {
+//                    LoginScreen(viewModel)
+//
+//                 }
+//            }
 //        }
 //    }
+////      EN PROCESO
+////    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+////        super.onActivityResult(requestCode, resultCode, data)
+////
+////        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+////        if (requestCode == RC_SIGN_IN) {
+////            // The Task returned from this call is always completed, no need to attach
+////            // a listener.
+////            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+////            handleSignInResult(task)
+////        }
+////    }
 }
