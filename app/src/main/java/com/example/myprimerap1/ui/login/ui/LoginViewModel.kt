@@ -83,7 +83,6 @@ class LoginViewModel : ViewModel() {
         try {
             val account: GoogleSignInAccount = accountTask.getResult(ApiException::class.java)
 
-            // Signed in successfully, show authenticated UI.
            account?.idToken?.let { token ->
                val auth = FirebaseAuth.getInstance()
                val credential = GoogleAuthProvider.getCredential(token, null)
@@ -98,8 +97,7 @@ class LoginViewModel : ViewModel() {
                     }
            }
         } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+
 
             _isLoading.value = true
         }
