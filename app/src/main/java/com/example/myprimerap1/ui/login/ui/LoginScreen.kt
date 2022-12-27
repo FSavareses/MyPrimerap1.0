@@ -56,6 +56,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
             Text(text = "--------------------------------------- O ---------------------------------------")
             GoogleAuthButton()
 
+
         }
     }
 }
@@ -63,7 +64,7 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
 @Composable
 fun GoogleAuthButton() {
     Button(
-        onClick = { },
+        onClick = {  },
         modifier = Modifier
             .fillMaxWidth()
             .height(46.dp)
