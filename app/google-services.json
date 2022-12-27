@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "875056188538",
+    "project_id": "miprimerapp1-9bc86",
+    "storage_bucket": "miprimerapp1-9bc86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875056188538:android:13f36995a954c9ae077fc3",
+        "android_client_info": {
+          "package_name": "com.example.myprimerap1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875056188538-nailkcc1k8gq3uplpf291oei414ps770.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myprimerap1",
+            "certificate_hash": "9b6e8331a1808e333985b7eb37021a39aae80114"
+          }
+        },
+        {
+          "client_id": "875056188538-r8lciicqh7603qu25ssrn4782b3lfst1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh1hS2Q8RWJ5gl64OlT7Fmhur-aws4SXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875056188538-r8lciicqh7603qu25ssrn4782b3lfst1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
