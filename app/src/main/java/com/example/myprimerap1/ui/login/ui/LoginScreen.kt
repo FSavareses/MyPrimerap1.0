@@ -1,6 +1,9 @@
 package com.example.myprimerap1.ui.login.ui
 
 
+import android.app.Activity
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -10,13 +13,15 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myprimerap1.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.launch
 
 @Composable
@@ -61,10 +66,49 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel) {
     }
 }
 
+fun loginWithGoogle(activity: Activity) {
+
+//    _isLoading.postValue(true)
+
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(activity.getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build()
+
+    val client = GoogleSignIn.getClient(activity, gso);
+
+//    val signInIntent: Intent = client.signInIntent
+//    activity.startActivityForResult(signInIntent, 1)
+
+
+}
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+    if (requestCode == RESULT_CODE_GOOGLE_SIGN_IN) {
+        try {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val account = task.getResult(ApiException::class.java)!!
+
+            if (account != null) {
+
+            }
+
+            } catch (e: ApiException){
+
+                Toast.makeText(this, "Error en la conexion", Toast.LENGTH_SHORT )
+
+            }
+        }
+    }
+}
+
 @Composable
 fun GoogleAuthButton() {
     Button(
-        onClick = {  },
+        onClick = { },
         modifier = Modifier
             .fillMaxWidth()
             .height(46.dp)
@@ -72,7 +116,7 @@ fun GoogleAuthButton() {
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(0xFFA1FF96),
             disabledBackgroundColor = Color(0xFFFFFFFF),
-            contentColor = Color.Black ,
+            contentColor = Color.Black,
             disabledContentColor = Color.Black
         )
     ) {

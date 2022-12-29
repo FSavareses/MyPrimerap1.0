@@ -25,23 +25,7 @@ class LoginViewModel : ViewModel() {
 
     fun isLoadingx() : LiveData<Boolean> = isLoadingx
 
-    fun loginWithGoogle(activity: Activity){
 
-        _isLoading.postValue(true)
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(activity.getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        val client = GoogleSignIn.getClient(activity, gso);
-
-        val signInIntent: Intent = client.signInIntent
-        activity.startActivityForResult(signInIntent, 1)
-
-//        val account = client.getLastSignedInAccount(this)
-//        updateUI(account)
-    }
 
 
     //FIREBASE GOOGLE
