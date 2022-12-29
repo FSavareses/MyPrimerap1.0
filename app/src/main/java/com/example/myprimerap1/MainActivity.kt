@@ -14,6 +14,7 @@ import com.example.myprimerap1.ui.login.ui.LoginViewModel
 import com.example.myprimerap1.ui.theme.MyPrimerap1Theme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 
 
 class MainActivity : ComponentActivity() {
@@ -42,12 +43,14 @@ class MainActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        val viewModel: LoginViewModel by viewModels()
+
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == 1) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            viewModel.finishLogin(task)
         }
     }
 }
