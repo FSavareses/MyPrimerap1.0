@@ -12,15 +12,9 @@ import androidx.compose.ui.Modifier
 import com.example.myprimerap1.ui.login.ui.LoginScreen
 import com.example.myprimerap1.ui.login.ui.LoginViewModel
 import com.example.myprimerap1.ui.theme.MyPrimerap1Theme
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
 
 
 class MainActivity : ComponentActivity() {
-//    private val auth by lazy{
-//        Firebase.auth
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +27,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 )
                 {
-                    LoginScreen(viewModel)
+                    LoginScreen(LoginViewModel())
 
                  }
             }
         }
     }
-//      EN PROCESO
+
 
 }

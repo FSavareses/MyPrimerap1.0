@@ -6,6 +6,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -13,12 +14,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myprimerap1.R
+import com.example.myprimerap1.ui.login.auth.GoogleAuthContent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -26,49 +32,29 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel) {
-    Box(
-        Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(top = 58.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Login(Modifier.align(Alignment.Center), viewModel)
+
+        HeaderImage(Modifier.align(Alignment.CenterHorizontally))
+//        EmailField("email") { viewModel.onLoginChanged(it, password) }
+//        PasswordField(password) { viewModel.onLoginChanged(email, it) }
+//        ForgotPassword(Modifier.align(Alignment.End))
+//        LoginButton(loginEnable)
+        GoogleAuthContent(viewModel = viewModel)
+
+
     }
 }
 
-@Composable
-fun Login(modifier: Modifier, viewModel: LoginViewModel) {
-    val email: String by viewModel.email.observeAsState(initial = "")
-    val password: String by viewModel.password.observeAsState(initial = "")
-    val loginEnable: Boolean by viewModel.loginEnable.observeAsState(initial = false)
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
-
-    val coroutineScope = rememberCoroutineScope()
-
-    if (isLoading) {
-        Box(Modifier.fillMaxSize()) {
-            CircularProgressIndicator(Modifier.align(Alignment.Center))
-        }
-    } else {
-        Column(modifier = modifier) {
-            HeaderImage(Modifier.align(Alignment.CenterHorizontally))
-            EmailField(email) { viewModel.onLoginChanged(it, password) }
-            PasswordField(password) { viewModel.onLoginChanged(email, it) }
-            ForgotPassword(Modifier.align(Alignment.End))
-            LoginButton(loginEnable)
-            {
-                coroutineScope.launch { viewModel.onLoginSelected() }
-            }
-            Text(text = "--------------------------------------- O ---------------------------------------")
-            GoogleAuthButton()
-
-
-        }
-    }
-}
 
 fun loginWithGoogle(activity: Activity) {
 
-//    _isLoading.postValue(true)
 
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(activity.getString(R.string.default_web_client_id))
@@ -77,50 +63,35 @@ fun loginWithGoogle(activity: Activity) {
 
     val client = GoogleSignIn.getClient(activity, gso);
 
-//    val signInIntent: Intent = client.signInIntent
-//    activity.startActivityForResult(signInIntent, 1)
-
 
 }
 
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
 
-    // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-    if (requestCode == RESULT_CODE_GOOGLE_SIGN_IN) {
-        try {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val account = task.getResult(ApiException::class.java)!!
-
-            if (account != null) {
-
-            }
-
-            } catch (e: ApiException){
-
-                Toast.makeText(this, "Error en la conexion", Toast.LENGTH_SHORT )
-
-            }
-        }
-    }
-}
 
 @Composable
-fun GoogleAuthButton() {
+fun GoogleLoginButton(
+    onClick: () -> Unit
+) {
     Button(
-        onClick = { },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(46.dp)
-            .padding(horizontal = 8.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color(0xFFA1FF96),
-            disabledBackgroundColor = Color(0xFFFFFFFF),
-            contentColor = Color.Black,
-            disabledContentColor = Color.Black
-        )
+        onClick = onClick,
+        shape = RoundedCornerShape(50),
+
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
     ) {
-        Text(text = "Iniciar Sesión Con GOOGLE")
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 15.dp)
+        ) {
+
+            Text(
+                text = "GOoggle",
+                fontSize = 16.sp,
+                color = Color.Black,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
