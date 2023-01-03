@@ -32,7 +32,6 @@ class LoginViewModel : ViewModel() {
 
         } catch (e: Exception) {
             loginUIState.emit(LoginUIState.Error(e.localizedMessage.orEmpty()))
-
         }
     }
 

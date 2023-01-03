@@ -2,33 +2,25 @@ package com.example.myprimerap1.ui.login.ui
 
 
 import android.app.Activity
-import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.myprimerap1.R
 import com.example.myprimerap1.ui.login.auth.GoogleAuthContent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel) {
@@ -40,32 +32,35 @@ fun LoginScreen(viewModel: LoginViewModel) {
             .padding(top = 58.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        //COMPONETES DE LA VISTA
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
 //        EmailField("email") { viewModel.onLoginChanged(it, password) }
 //        PasswordField(password) { viewModel.onLoginChanged(email, it) }
 //        ForgotPassword(Modifier.align(Alignment.End))
-//        LoginButton(loginEnable)
+        LoginButton(true) {}
+        RegisterButton()
+        Text(
+            text = "----------------------- 0 ----------------------- ",
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
         GoogleAuthContent(viewModel = viewModel)
-
-
     }
 }
 
 
 fun loginWithGoogle(activity: Activity) {
 
-
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(activity.getString(R.string.default_web_client_id))
         .requestEmail()
         .build()
 
-    val client = GoogleSignIn.getClient(activity, gso);
-
-
+    val client = GoogleSignIn.getClient(activity, gso)
 }
-
 
 
 @Composable
@@ -75,40 +70,59 @@ fun GoogleLoginButton(
     Button(
         onClick = onClick,
         shape = RoundedCornerShape(50),
-
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .padding(horizontal = 20.dp),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp)
-        ) {
+        Text(
+            text = "Ingresar con Google",
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
 
-            Text(
-                text = "GOoggle",
-                fontSize = 16.sp,
-                color = Color.Black,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-        }
+    }
+}
+
+@Composable
+fun RegisterButton() {
+    Button(
+        onClick = { },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .padding(horizontal = 20.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xE9000000),
+            disabledBackgroundColor = Color(0x9048A7F1),
+            contentColor = Color.White,
+            disabledContentColor = Color.White
+        ),
+        shape = RoundedCornerShape(50)
+    ) {
+        Text(text = "Registrarse")
     }
 }
 
 @Composable
 fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
-
     Button(
-        onClick = { onLoginSelected() }, modifier = Modifier
+        onClick = { onLoginSelected() },
+        modifier = Modifier
             .fillMaxWidth()
-            .height(46.dp)
-            .padding(horizontal = 8.dp),
+            .height(60.dp)
+            .padding(horizontal = 20.dp, vertical = 10.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(0xE9FD3D2E),
             disabledBackgroundColor = Color(0x9048A7F1),
             contentColor = Color.White,
             disabledContentColor = Color.White
-        ), enabled = loginEnable
+        ),
+        enabled = loginEnable,
+        shape = RoundedCornerShape(50)
     ) {
         Text(text = "Iniciar Sesión")
     }
@@ -176,6 +190,7 @@ fun HeaderImage(modifier: Modifier) {
         painter = painterResource(id = R.drawable.fox),
         contentDescription = "Header",
         modifier = modifier
-            .size(200.dp)
+            .size(320.dp)
+            .padding(vertical = 60.dp)
     )
 }
