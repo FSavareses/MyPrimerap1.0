@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 )
                 {
-                    LoginScreen(LoginViewModel())
+                    LoginScreen(this)
 
                  }
             }

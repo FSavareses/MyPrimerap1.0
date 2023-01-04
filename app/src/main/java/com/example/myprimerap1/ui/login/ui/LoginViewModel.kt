@@ -3,8 +3,12 @@ package com.example.myprimerap1.ui.login.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.myprimerap1.R
 import com.example.myprimerap1.ui.util.LoginUIState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,6 +28,10 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
 
     val loginUIState = MutableStateFlow<LoginUIState>(LoginUIState.Idle)
+    val isLoading = MutableLiveData(false)
+
+    fun isLoading(): LiveData<Boolean> = isLoading
+
 
     fun signWithCredential(credential: AuthCredential) = viewModelScope.launch {
         try {
@@ -32,6 +40,7 @@ class LoginViewModel : ViewModel() {
 
         } catch (e: Exception) {
             loginUIState.emit(LoginUIState.Error(e.localizedMessage.orEmpty()))
+//            Firebase.crashlytics.log(e.toString())
         }
     }
 
@@ -41,7 +50,9 @@ class LoginViewModel : ViewModel() {
             val credential = GoogleAuthProvider.getCredential(idToken.orEmpty(), null)
             signWithCredential(credential)
 
+//            val tokenID = RemoteSignUpParams(idToken.orEmpty())
 
+//            getCurrentFirebaseUser(navController)
         }
     }
 
@@ -50,10 +61,13 @@ class LoginViewModel : ViewModel() {
             .requestIdToken(webclientId)
             .requestEmail()
             .build()
-        val googleSignInClient = GoogleSignIn.getClient(context, gso)
 
+        val googleSignInClient = GoogleSignIn.getClient(context, gso)
+        Toast.makeText(context, "Inicio de Sesion Exitoso!", Toast.LENGTH_SHORT).show()
+        isLoading.value = true
         return googleSignInClient.signInIntent
     }
+
 
 
 
