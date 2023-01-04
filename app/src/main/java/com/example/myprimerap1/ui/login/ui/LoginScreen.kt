@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,13 +18,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myprimerap1.MainActivity
 import com.example.myprimerap1.R
 import com.example.myprimerap1.ui.login.auth.GoogleAuthContent
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel) {
+fun LoginScreen(activity: MainActivity) {
+
+    val loginViewModel: LoginViewModel = viewModel()
+
+    val isLoading by loginViewModel.isLoading().observeAsState(false)
+
+    if(isLoading){
+        //NAV -> HOMESCREEN
+    }
 
     Column(
         modifier = Modifier
@@ -32,7 +43,7 @@ fun LoginScreen(viewModel: LoginViewModel) {
             .padding(top = 58.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //COMPONETES DE LA VISTA
+
         HeaderImage(Modifier.align(Alignment.CenterHorizontally))
 //        EmailField("email") { viewModel.onLoginChanged(it, password) }
 //        PasswordField(password) { viewModel.onLoginChanged(email, it) }
@@ -47,7 +58,7 @@ fun LoginScreen(viewModel: LoginViewModel) {
             textAlign = TextAlign.Center
         )
 
-        GoogleAuthContent(viewModel = viewModel)
+        GoogleAuthContent(loginViewModel)
     }
 }
 
